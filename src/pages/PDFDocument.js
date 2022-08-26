@@ -8,8 +8,8 @@ import {
     PDFViewer,
     Image as PDFImage
 } from "@react-pdf/renderer";
-import ws_special from './assets/ws_special.png';
-import no_ws_special from './assets/no_ws.png';
+import ws_special from '../assets/ws_special.png';
+import no_ws_special from '../assets/no_ws.png';
 // Create styles
 const styles = StyleSheet.create({
     page: {
@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
         fontSize: 22
     },
     viewer: {
-        width: window.innerWidth, //the pdf viewer will take up all of the width and height
-        height: window.innerHeight,
+        width: window.innerWidth * .5, //the pdf viewer will take up all of the width and height
+        height: window.innerHeight * .5,
     },
     image: {
         width: 80,
