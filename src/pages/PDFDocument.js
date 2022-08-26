@@ -5,7 +5,6 @@ import {
     Text,
     View,
     StyleSheet,
-    PDFViewer,
     Image as PDFImage
 } from "@react-pdf/renderer";
 import ws_special from '../assets/ws_special.png';
@@ -64,30 +63,27 @@ const Image = ({ src = '' }) => {
 }
 
 // Create Document Component
-function BasicDocument({ title = '', price = '', pageSize = 'A6' }) {
+function BasicDocument({ title = 'test', price = '12', pageSize = 'A6' }) {
     return (
-        <PDFViewer style={styles.viewer}>
-            {/* Start of the document*/}
-            <Document>
-                {/*render a single page*/}
-                <Page size={pageSize} style={styles.page} orientation="landscape">
-                    <View style={styles.section}>
-                        <Text>{title}</Text>
+        <Document>
+            {/*render a single page*/}
+            <Page size={pageSize} style={styles.page} orientation="landscape">
+                <View style={styles.section}>
+                    <Text>{title}</Text>
+                </View>
+                <View style={styles.section}>
+                    <Text style={styles.price}>{price}</Text>
+                    <View style={styles.logo_view}>
+                        <Image src={ws_special} />
+                        <Image src={no_ws_special} />
                     </View>
-                    <View style={styles.section}>
-                        <Text style={styles.price}>{price}</Text>
-                        <View style={styles.logo_view}>
-                            <Image src={ws_special} />
-                            <Image src={no_ws_special} />
-                        </View>
-                    </View>
-                    <View>
-                        <Text>{`${dateTime.split(',')[0]}`}</Text>
-                        <Text style={{ paddingTop: 3 }}>{`${dateTime.split(',')[1]}`}</Text>
-                    </View>
-                </Page>
-            </Document>
-        </PDFViewer>
+                </View>
+                <View>
+                    <Text>{`${dateTime.split(',')[0]}`}</Text>
+                    <Text style={{ paddingTop: 3 }}>{`${dateTime.split(',')[1]}`}</Text>
+                </View>
+            </Page>
+        </Document>
     );
 }
 export default BasicDocument;
