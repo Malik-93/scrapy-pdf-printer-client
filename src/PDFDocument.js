@@ -8,8 +8,8 @@ import {
     PDFViewer,
     Image as PDFImage
 } from "@react-pdf/renderer";
-import ws_special from './assets/ws_special.jpeg';
-import no_ws_special from './assets/no_ws.jpeg';
+import ws_special from './assets/ws_special.png';
+import no_ws_special from './assets/no_ws.png';
 // Create styles
 const styles = StyleSheet.create({
     page: {
@@ -35,9 +35,10 @@ const styles = StyleSheet.create({
         height: window.innerHeight,
     },
     image: {
-        width: 100,
-        height: 100,
-        borderRadius: 50
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        marginHorizontal: 5
     },
     price: {
         fontSize: 60,
@@ -63,13 +64,13 @@ const Image = ({ src = '' }) => {
 }
 
 // Create Document Component
-function BasicDocument({ title = '', price = '', }) {
+function BasicDocument({ title = '', price = '', pageSize = 'A6' }) {
     return (
         <PDFViewer style={styles.viewer}>
             {/* Start of the document*/}
             <Document>
                 {/*render a single page*/}
-                <Page size="A6" style={styles.page} orientation="landscape">
+                <Page size={pageSize} style={styles.page} orientation="landscape">
                     <View style={styles.section}>
                         <Text>{title}</Text>
                     </View>
@@ -82,7 +83,7 @@ function BasicDocument({ title = '', price = '', }) {
                     </View>
                     <View>
                         <Text>{`${dateTime.split(',')[0]}`}</Text>
-                        <Text style={{ paddingTop: 5 }}>{`${dateTime.split(',')[1]}`}</Text>
+                        <Text style={{ paddingTop: 3 }}>{`${dateTime.split(',')[1]}`}</Text>
                     </View>
                 </Page>
             </Document>

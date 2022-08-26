@@ -5,6 +5,7 @@ import PDFDocument from './PDFDocument';
 function App() {
   const [title, setTitle] = React.useState('');
   const [price, setPrice] = React.useState('');
+  const [pageSize, setPageSize] = React.useState('A6');
   // const asyncFunc = async () => {
   //   try {
   //     const result = await renderToFile(<PDFDocument title={'title'} price={'price'} />, `${__dirname}/my-doc.pdf`);
@@ -18,6 +19,7 @@ function App() {
     const params = new URLSearchParams(window.location.search);
     setTitle(`${params.get('title')}`);
     setPrice(`${params.get('price')}`);
+    setPageSize(`${params.get('pageSize')}`);
     // const blob = pdf(PDFDocument).toBlob();
     // console.log('blob', blob);
     // window.print()
@@ -33,7 +35,7 @@ function App() {
         }
         }
       </BlobProvider> */}
-      <PDFDocument title={title} price={price} />
+      <PDFDocument title={title} price={price} pageSize={pageSize} />
     </div>
   );
 }
