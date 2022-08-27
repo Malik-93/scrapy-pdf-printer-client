@@ -37,6 +37,11 @@ function App() {
       .catch(err => {
         console.log("[multipartPostRequest].err", err);
       })
+      .finally(() => {
+        setTimeout(() => {
+          alert('Print request has been sent to printer...')
+        }, 2000);
+      })
   }
 
 
