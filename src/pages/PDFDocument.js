@@ -5,43 +5,48 @@ import {
     Text,
     View,
     StyleSheet,
-    Image as PDFImage
+    Image as PDFImage,
 } from "@react-pdf/renderer";
 import ws_special from '../assets/ws_special.png';
 import no_ws_special from '../assets/no_ws.png';
+// import { useBarcode } from '@createnextapp/react-barcode';
+// import Barcode from 'react-barcode';
+// import QrCode from 'react-qrcode-svg';
+
+
 // Create styles
 const styles = StyleSheet.create({
     page: {
         backgroundColor: "white",
         color: "#000",
         margin: 10,
-        padding: 20
+        padding: 10
     },
     section: {
         display: 'flex',
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "space-evenly",
         alignItems: "center",
-        margin: 5,
+        marginTop: 10,
         // padding: 10,
 
     },
     title: {
-        fontSize: 22
+        fontSize: 12
     },
     viewer: {
-        width: window.innerWidth * .5, //the pdf viewer will take up all of the width and height
-        height: window.innerHeight * .5,
+        width: window.innerWidth, //the pdf viewer will take up all of the width and height
+        height: window.innerHeight,
     },
     image: {
-        width: 80,
-        height: 80,
-        borderRadius: 40,
+        width: 60,
+        height: 60,
+        borderRadius: 30,
         marginHorizontal: 5
     },
     price: {
-        fontSize: 60,
-        paddingLeft: 20,
+        fontSize: 20,
+        // paddingLeft: 10,
         fontWeight: "extrabold",
     },
     logo_view: {
@@ -64,23 +69,22 @@ const Image = ({ src = '', propStyles = {} }) => {
 
 // Create Document Component
 function BasicDocument({ title = 'test', price = '12', pageSize = 'A6' }) {
+
     return (
         <Document>
             {/*render a single page*/}
             <Page size={pageSize} style={styles.page} orientation="landscape">
-                <View style={styles.section}>
-                    <Text>{title}</Text>
-                </View>
+                <Text style={{ fontSize: 12 }}>{title}</Text>
                 <View style={styles.section}>
                     <Text style={styles.price}>{price}</Text>
                     <View style={styles.logo_view}>
-                        <Image src={ws_special} propStyles={{ with: 78, height: 78, borderRadius: 38, right: 5 }} />
+                        <Image src={ws_special} propStyles={{ with: 60, height: 60, borderRadius: 30 }} />
                         <Image src={no_ws_special} />
                     </View>
                 </View>
-                <View>
-                    <Text>{`${dateTime.split(',')[0]}`}</Text>
-                    <Text style={{ paddingTop: 3 }}>{`${dateTime.split(',')[1]}`}</Text>
+                <View style={{ top: 16, right: 7 }}>
+                    <Text style={{ fontSize: 10 }}>{`${dateTime.split(',')[0]}`}</Text>
+                    <Text style={{ paddingTop: 3, fontSize: 10 }}>{`${dateTime.split(',')[1]}`}</Text>
                 </View>
             </Page>
         </Document>
