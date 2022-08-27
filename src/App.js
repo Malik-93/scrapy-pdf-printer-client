@@ -19,12 +19,7 @@ function App() {
   const [price, setPrice] = React.useState('');
   const [pageSize, setPageSize] = React.useState('C8');
   const fileUrl = React.useRef(null);
-  // const { inputRef } = useBarcode({
-  //   value: 'createnextapp',
-  //   options: {
-  //     background: '#ccffff',
-  //   }
-  // });
+  const initialRender = React.useRef(true);
 
   const multipartPostRequest = async (File) => {
     const formData = new FormData();
@@ -60,7 +55,11 @@ function App() {
     const params = new URLSearchParams(window.location.search);
     setTitle(`${params.get('title')}`);
     setPrice(`${params.get('price')}`);
-    setPageSize(`${params.get('pageSize')}`);
+    if (initialRender.current) {
+      initialRender.current = false;
+    } else {
+      setPageSize(`${params.get('pageSize')}`);
+    }
     // const blob = pdf(PDFDocument).toBlob();
     // console.log('blob', blob);
     // window.print()
