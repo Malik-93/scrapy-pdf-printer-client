@@ -57,6 +57,7 @@ function App() {
     setPrice(`${params.get('price')}`);
     if (initialRender.current) {
       initialRender.current = false;
+      params.set('pageSize', 'C8')
     } else {
       setPageSize(`${params.get('pageSize')}`);
     }
