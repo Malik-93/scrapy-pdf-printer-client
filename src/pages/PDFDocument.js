@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        // margin: 10,
+        margin: 5,
         // padding: 10,
 
     },
@@ -53,10 +53,10 @@ const styles = StyleSheet.create({
 });
 const dateTime = `${new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(Date.now())}`;
 
-const Image = ({ src = '' }) => {
+const Image = ({ src = '', propStyles = {} }) => {
     return (
         <PDFImage
-            style={styles.image}
+            style={{ ...styles.image, ...propStyles }}
             src={src}
         />
     )
@@ -74,7 +74,7 @@ function BasicDocument({ title = 'test', price = '12', pageSize = 'A6' }) {
                 <View style={styles.section}>
                     <Text style={styles.price}>{price}</Text>
                     <View style={styles.logo_view}>
-                        <Image src={ws_special} />
+                        <Image src={ws_special} propStyles={{ with: 78, height: 78, borderRadius: 38, right: 5 }} />
                         <Image src={no_ws_special} />
                     </View>
                 </View>
