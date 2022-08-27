@@ -9,10 +9,6 @@ import {
 } from "@react-pdf/renderer";
 import ws_special from '../assets/ws_special.png';
 import no_ws_special from '../assets/no_ws.png';
-// import { useBarcode } from '@createnextapp/react-barcode';
-// import Barcode from 'react-barcode';
-// import QrCode from 'react-qrcode-svg';
-
 
 // Create styles
 const styles = StyleSheet.create({
@@ -68,12 +64,12 @@ const Image = ({ src = '', propStyles = {} }) => {
 }
 
 // Create Document Component
-function BasicDocument({ title = 'test', price = '12', pageSize = 'A6' }) {
+function BasicDocument({ title = 'test', price = '12', pageSize = 'A6', barcode = '' }) {
 
     return (
         <Document>
             {/*render a single page*/}
-            <Page size={pageSize} style={styles.page} orientation="landscape">
+            <Page size={pageSize} style={styles.page} orientation="landscape" break={false}>
                 <Text style={{ fontSize: 12 }}>{title}</Text>
                 <View style={styles.section}>
                     <Text style={styles.price}>{price}</Text>
@@ -82,9 +78,12 @@ function BasicDocument({ title = 'test', price = '12', pageSize = 'A6' }) {
                         <Image src={no_ws_special} />
                     </View>
                 </View>
-                <View style={{ top: 16, right: 7 }}>
-                    <Text style={{ fontSize: 10 }}>{`${dateTime.split(',')[0]}`}</Text>
-                    <Text style={{ paddingTop: 3, fontSize: 10 }}>{`${dateTime.split(',')[1]}`}</Text>
+                <View style={{ display: 'flex', justifyContent: 'space-around', alignItems: "center", flexDirection: 'row', top: 10 }}>
+                    <View>
+                        <Text style={{ fontSize: 9 }}>{`${dateTime.split(',')[0]}`}</Text>
+                        <Text style={{ paddingTop: 3, fontSize: 9 }}>{`${dateTime.split(',')[1]}`}</Text>
+                    </View>
+                    <PDFImage style={{ height: 45 }} src={barcode} />
                 </View>
             </Page>
         </Document>

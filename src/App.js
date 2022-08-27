@@ -2,12 +2,11 @@ import { PDFViewer, BlobProvider, StyleSheet } from '@react-pdf/renderer';
 import React from 'react';
 import './App.css';
 import PDFDocument from './pages/PDFDocument';
-// import { useBarcode } from '@createnextapp/react-barcode';
-import Barcode from 'react-barcode';
+import crypto from 'crypto';
+import JsBarcode from 'jsbarcode';
 
-
-// import File from './pages/File';
 const LOCAL_SERVER_URL = `http://localhost:9000`;
+
 const styles = StyleSheet.create({
   viewer: {
     width: window.innerWidth,
@@ -18,8 +17,8 @@ function App() {
   const [title, setTitle] = React.useState('');
   const [price, setPrice] = React.useState('');
   const [pageSize, setPageSize] = React.useState('C8');
+  const [barcode, setBarcode] = React.useState('');
   const fileUrl = React.useRef(null);
-  const initialRender = React.useRef(true);
 
   const multipartPostRequest = async (File) => {
     const formData = new FormData();
@@ -55,30 +54,21 @@ function App() {
     const params = new URLSearchParams(window.location.search);
     setTitle(`${params.get('title')}`);
     setPrice(`${params.get('price')}`);
-    if (initialRender.current) {
-      initialRender.current = false;
-      params.set('pageSize', 'C8')
-    } else {
-      setPageSize(`${params.get('pageSize')}`);
-    }
-    // const blob = pdf(PDFDocument).toBlob();
-    // console.log('blob', blob);
-    // window.print()
-    // asyncFunc();
+    setPageSize(`${params.get('pageSize')}`);
+    let canvas = document.createElement('canvas');
+    JsBarcode(canvas, `${crypto.randomBytes(8).toString('hex')}`);
+    const _barcode = canvas.toDataURL();
+    setBarcode(`${_barcode}`)
   }, [])
-  // console.log('fileUrl', fileUrl.current);
   if (!title && !price) return;
   return (
     <div className="App">
+
       <PDFViewer style={styles.viewer}>
-        <PDFDocument title={title} price={price} pageSize={pageSize} />
+        <PDFDocument title={title} price={price} pageSize={pageSize} barcode={barcode} />
       </PDFViewer>
 
-      <div style={{ background: "transparent", position: "absolute", top: '22%', right: 0, left: '26%' }}>
-        <Barcode displayValue={false} height={45} width={1} value="barcode-example" />
-      </div>
-
-      <BlobProvider document={<PDFDocument title={title} price={price} pageSize={pageSize} />}>
+      <BlobProvider document={<PDFDocument title={title} price={price} pageSize={pageSize} barcode={barcode} />}>
         {({ blob, url, loading, error }) => {
           if (loading) {
             return 'Loading document...'
@@ -94,23 +84,6 @@ function App() {
           }
         }}
       </BlobProvider>
-
-
-      {/* <PDFDownloadLink document={<PDFDocument title={title} price={price} pageSize={pageSize} />} fileName="scrapy-file.pdf">
-        {({ blob, url, loading, error }) => {
-          if (loading) {
-            return 'Loading document...'
-          } else {
-            console.log(blob);
-            if (url && !fileUrl.current) {
-              fileUrl.current = url;
-              fetch(`${url}`).then(res => res.text()).then(data => console.log('data ---->', data)).catch(err => console.log(err))
-              // window.open(`${url}`)
-            }
-
-          }
-        }}
-      </PDFDownloadLink> */}
     </div>
   );
 }
