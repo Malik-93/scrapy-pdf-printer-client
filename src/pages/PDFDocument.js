@@ -50,6 +50,18 @@ const styles = StyleSheet.create({
         // justifyContent: "center",
         flexDirection: "row",
         alignItems: "center"
+    },
+    date: {
+        fontSize: 9
+    },
+    time: {
+        paddingTop: 3, fontSize: 9
+    },
+    barCode: {
+        height: 45
+    },
+    footerContainer: {
+        display: 'flex', justifyContent: 'space-around', alignItems: "center", flexDirection: 'row', top: 10
     }
 });
 const dateTime = `${new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(Date.now())}`;
@@ -78,12 +90,12 @@ function BasicDocument({ title = 'test', price = '12', pageSize = 'A6', barcode 
                         <Image src={no_ws_special} />
                     </View>
                 </View>
-                <View style={{ display: 'flex', justifyContent: 'space-around', alignItems: "center", flexDirection: 'row', top: 10 }}>
+                <View style={styles.footerContainer}>
                     <View>
-                        <Text style={{ fontSize: 9 }}>{`${dateTime.split(',')[0]}`}</Text>
-                        <Text style={{ paddingTop: 3, fontSize: 9 }}>{`${dateTime.split(',')[1]}`}</Text>
+                        <Text style={styles.date}>{`${dateTime.split(',')[0]}`}</Text>
+                        <Text style={styles.time}>{`${dateTime.split(',')[1]}`}</Text>
                     </View>
-                    <PDFImage style={{ height: 45 }} src={barcode} />
+                    <PDFImage style={styles.barCode} src={barcode} />
                 </View>
             </Page>
         </Document>
