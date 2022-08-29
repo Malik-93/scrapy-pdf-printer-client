@@ -20,7 +20,7 @@ function App() {
   const [barcode, setBarcode] = React.useState('');
   const fileUrl = React.useRef(null);
 
-  const multipartPostRequest = async (File) => {
+  const multipartPostRequest = (File) => {
     const formData = new FormData();
     formData.append('file', File);
     fetch(`${LOCAL_SERVER_URL}/print`, {
@@ -41,11 +41,7 @@ function App() {
         console.log("[multipartPostRequest].err", err);
       })
       .finally(() => {
-        setTimeout(() => {
-          if (process.env.NODE_ENV !== 'development') {
-            alert('Print request has been sent to printer...')
-          }
-        }, 2000);
+        alert('Print request has been sent to printer...')
       })
   }
 
