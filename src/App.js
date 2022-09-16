@@ -2,7 +2,6 @@ import { PDFViewer, BlobProvider, StyleSheet } from '@react-pdf/renderer';
 import React from 'react';
 import './App.css';
 import PDFDocument from './pages/PDFDocument';
-import crypto from 'crypto';
 import JsBarcode from 'jsbarcode';
 
 const LOCAL_SERVER_URL = `http://localhost:9000`;
@@ -41,7 +40,7 @@ function App() {
         console.log("[multipartPostRequest].err", err);
       })
       .finally(() => {
-        alert('Print request has been sent to printer...')
+        // alert('Print request has been sent to printer...')
       })
   }
 
@@ -51,8 +50,9 @@ function App() {
     setTitle(`${params.get('title')}`);
     setPrice(`${params.get('price')}`);
     setPageSize(`${params.get('pageSize')}`);
+    let ItemId = params.get('ItemId');
     let canvas = document.createElement('canvas');
-    JsBarcode(canvas, `${crypto.randomBytes(8).toString('hex')}`);
+    JsBarcode(canvas, `${ItemId}`, { format: "upc" });
     const _barcode = canvas.toDataURL();
     setBarcode(`${_barcode}`)
   }, [])

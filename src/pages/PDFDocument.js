@@ -13,10 +13,11 @@ import no_ws_special from '../assets/no_ws.png';
 // Create styles
 const styles = StyleSheet.create({
     page: {
+        width: '100vw !important',
         backgroundColor: "white",
         color: "#000",
-        margin: 10,
-        padding: 10
+        margin: 5,
+        padding: 5
     },
     section: {
         display: 'flex',
@@ -35,13 +36,13 @@ const styles = StyleSheet.create({
         height: window.innerHeight,
     },
     image: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
+        width: 120,
+        height: 120,
+        borderRadius: 60,
         marginHorizontal: 5
     },
     price: {
-        fontSize: 20,
+        fontSize: 80,
         // paddingLeft: 10,
         fontWeight: "extrabold",
     },
@@ -52,13 +53,15 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     date: {
-        fontSize: 9
+        fontSize: 20
     },
     time: {
-        paddingTop: 3, fontSize: 9
+        paddingTop: 3,
+        fontSize: 20
     },
     barCode: {
-        height: 45
+        height: 120,
+        width: 400
     },
     footerContainer: {
         display: 'flex', justifyContent: 'space-around', alignItems: "center", flexDirection: 'row', top: 10
@@ -82,23 +85,23 @@ function BasicDocument({ title = 'test', price = '12', pageSize = 'A6', barcode 
         <Document>
             {/*render a single page*/}
             <Page size={pageSize} style={styles.page} orientation="landscape" break={false}>
-                <Text style={{ fontSize: 12 }}>{title}</Text>
+                <Text style={{ fontSize: '30px', maxLines: 2, fontWeight: 'bold' }}>{`${title} AND THIS IS THE OTHER TEXT`}</Text>
                 <View style={styles.section}>
                     <Text style={styles.price}>{price}</Text>
                     <View style={styles.logo_view}>
-                        <Image src={ws_special} propStyles={{ with: 60, height: 60, borderRadius: 30 }} />
+                        <Image src={ws_special} />
                         <Image src={no_ws_special} />
                     </View>
                 </View>
                 <View style={styles.footerContainer}>
-                    <View>
+                    <View style={{ top: 10 }}>
                         <Text style={styles.date}>{`${dateTime.split(',')[0]}`}</Text>
                         <Text style={styles.time}>{`${dateTime.split(',')[1]}`}</Text>
                     </View>
                     <PDFImage style={styles.barCode} src={barcode} />
                 </View>
             </Page>
-        </Document>
+        </Document >
     );
 }
 export default BasicDocument;
