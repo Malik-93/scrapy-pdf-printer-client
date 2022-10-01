@@ -4,7 +4,7 @@ import './App.css';
 import PDFDocument from './pages/PDFDocument';
 import JsBarcode from 'jsbarcode';
 
-const LOCAL_SERVER_URL = `http://localhost:9000`;
+const LOCAL_SERVER_URL = `http://192.168.0.101:9000`;
 
 const styles = StyleSheet.create({
   viewer: {
@@ -12,11 +12,13 @@ const styles = StyleSheet.create({
     height: window.innerHeight * .5,
   },
 })
+const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 function App() {
-  const [title, setTitle] = React.useState('');
-  const [price, setPrice] = React.useState('');
-  const [pageSize, setPageSize] = React.useState('C8');
-  const [barcode, setBarcode] = React.useState('');
+
+  const [title, setTitle] = React.useState(IS_DEVELOPMENT ? 'Title' : '');
+  const [price, setPrice] = React.useState(IS_DEVELOPMENT ? 50 : '');
+  const [pageSize, setPageSize] = React.useState(IS_DEVELOPMENT ? 'C8' : 'C8');
+  const [barcode, setBarcode] = React.useState(IS_DEVELOPMENT ? '2342353453453' : '');
   const fileUrl = React.useRef(null);
 
   const multipartPostRequest = (File) => {
@@ -47,16 +49,18 @@ function App() {
 
   React.useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    setTitle(`${params.get('title')}`);
-    setPrice(`${params.get('price')}`);
-    setPageSize(`${params.get('pageSize')}`);
-    let ItemId = params.get('ItemId');
-    let canvas = document.createElement('canvas');
-    JsBarcode(canvas, `${ItemId}`, { format: "upc" });
-    const _barcode = canvas.toDataURL();
-    setBarcode(`${_barcode}`)
+    if (params.get('title')) {
+      setTitle(`${params.get('title')}`);
+      setPrice(`${params.get('price')}`);
+      setPageSize(`${params.get('pageSize')}`);
+      // let ItemId = params.get('ItemId');
+      let canvas = document.createElement('canvas');
+      JsBarcode(canvas, `ItemId`, { format: "upc" });
+      const _barcode = canvas.toDataURL();
+      setBarcode(`${_barcode}`)
+    }
   }, [])
-  if (!title && !price) return;
+  if (!title) return <div className="">React App</div>;
   return (
     <div className="App">
 
