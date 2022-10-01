@@ -4,7 +4,7 @@ import './App.css';
 import PDFDocument from './pages/PDFDocument';
 import JsBarcode from 'jsbarcode';
 
-const LOCAL_SERVER_URL = `http://192.168.0.101:9000`;
+const LOCAL_SERVER_URL = `https://192.168.0.101:9000`;
 
 const styles = StyleSheet.create({
   viewer: {
