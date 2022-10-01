@@ -53,9 +53,9 @@ function App() {
       setTitle(`${params.get('title')}`);
       setPrice(`${params.get('price')}`);
       setPageSize(`${params.get('pageSize')}`);
-      // let ItemId = params.get('ItemId');
+      let ItemId = params.get('ItemId');
       let canvas = document.createElement('canvas');
-      JsBarcode(canvas, `ItemId`, { format: "upc" });
+      JsBarcode(canvas, ItemId, { format: "upc" });
       const _barcode = canvas.toDataURL();
       setBarcode(`${_barcode}`)
     }
