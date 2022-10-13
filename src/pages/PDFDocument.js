@@ -84,7 +84,7 @@ function BasicDocument({ title = 'test', price = '12', pageSize = 'A6', barcode 
     return (
         <Document>
             {/*render a single page*/}
-            <Page size={pageSize} style={styles.page} orientation="landscape" break={false}>
+            <Page size={'c5'} style={styles.page} orientation="landscape" break={false}>
                 <Text style={{ fontSize: '30px', maxLines: 2, fontWeight: 'bold' }}>{`${title} AND THIS IS THE OTHER TEXT`}</Text>
                 <View style={styles.section}>
                     <Text style={styles.price}>{price}</Text>
