@@ -85,14 +85,14 @@ function BasicDocument({ title = 'test', price = '12', pageSize = 'A6', barcode 
         <Document>
             {/*render a single page*/}
             <Page size={'c5'} style={styles.page} orientation="landscape" break={false}>
-                <Text style={{ fontSize: '30px', maxLines: 2, fontWeight: 'bold' }}>{`${title} AND THIS IS THE OTHER TEXT`}</Text>
-                <View style={styles.section}>
-                    <Text style={styles.price}>{price}</Text>
-                    <View style={styles.logo_view}>
-                        <Image src={ws_special} />
-                        <Image src={no_ws_special} />
-                    </View>
-                </View>
+                <Text style={{ fontSize: '30px', maxLines: 2, fontWeight: 'bold' }}>{`${title}`}</Text>
+//                 <View style={styles.section}>
+//                     <Text style={styles.price}>{price}</Text>
+//                     <View style={styles.logo_view}>
+//                         <Image src={ws_special} />
+//                         <Image src={no_ws_special} />
+//                     </View>
+//                 </View>
                 <View style={styles.footerContainer}>
                     <View style={{ top: 10 }}>
                         <Text style={styles.date}>{`${dateTime.split(',')[0]}`}</Text>
